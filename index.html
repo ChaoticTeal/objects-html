@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css"/>
 
     <!-- @TODO link JS with defer -->
-
+    <script src="main.js" defer></script>
     <title>User Database</title>
 </head>
 <body>
@@ -20,11 +20,13 @@
                 - for usernames of type "text" with id "username"
                 - for PFP urls of type "url" with id "pfp-url"
         -->
-
+        <input type="text" id="username" placeholder="Enter username"/>
+        <input type="url" id="pfp-url" placeholder="Enter image URL"/>
         <!--
             @TODO create submit button for the form which
             will append a new User object to #user-container
         -->
+        <button id="submit-btn">Submit</button>
     </form>
 
     <!--

@@ -10,6 +10,36 @@
  *        to #user-container
  */
 
+let submitBtn = document.getElementById("submit-btn");
+// arrow function
+//              params go here
+submitBtn.onclick = (event) => {
+    // Prevents default behavior (reloading the page)
+    event.preventDefault();
+
+    let usernameElem = document.querySelector("#username");
+    let pfpURLElem = document.querySelector("#pfp-url");
+
+    // Make one-off objects with curly braces
+    let formData = {
+        // These are properties
+        username: usernameElem.value,
+        pfpURL: pfpURLElem.value,
+        // This is a method
+        // Using arrow functions within objects is tricky because "this" will refer to the arrow function instead of the object
+        debug: function() {
+            alert(`Username: ${this.username}\nURL: ${this.pfpURL}`);
+        }
+    }
+    // formData.debug();
+    let addedUser = new User(formData.pfpURL, formData.username);
+
+    let userElem = addedUser.makeHTML();
+
+    let userContainer = document.getElementById("user-container");
+    userContainer.append(userElem);
+}
+
 /**
  * @TODO create a User class which has username, email,
  * and pfpURL props containing the appropriate data. the
@@ -27,3 +57,28 @@
  *      - an img with the src set to this object's pfpURL
  *      - an h2 with the text set to this object's username
  */
+
+class User {
+    constructor(pfpURL, username) {
+        if(pfpURL === "") {
+            this.pfpURL = "images/default-pfp.jpg";
+        }
+        else {
+            this.pfpURL = pfpURL;
+        }
+        this.username = username;
+    }
+
+    makeHTML() {
+        let parentDiv = document.createElement("div");
+        parentDiv.classList.add("user-item");
+        let pfp = document.createElement("img");
+        pfp.setAttribute("src", this.pfpURL);
+        parentDiv.append(pfp);
+        let h2Elem = document.createElement("h2");
+        h2Elem.innerHTML= this.username;
+        parentDiv.append(h2Elem);
+
+        return parentDiv;
+    }
+}
